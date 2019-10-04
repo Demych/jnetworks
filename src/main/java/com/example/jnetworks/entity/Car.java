@@ -2,7 +2,11 @@ package com.example.jnetworks.entity;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Getter
@@ -10,12 +14,16 @@ import java.sql.Timestamp;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Car {
 
-    long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
     @Pattern(regexp="[A-Z0-9\\- ]{4,16}")
-    String carNumber;
+    @Size()
+    private String carNumber;
 
-    Timestamp timestamp;
+    private Timestamp timestamp;
 }
