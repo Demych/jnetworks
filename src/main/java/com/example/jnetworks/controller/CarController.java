@@ -2,6 +2,7 @@ package com.example.jnetworks.controller;
 
 import com.example.jnetworks.entity.Car;
 import com.example.jnetworks.repository.CarRepository;
+import com.example.jnetworks.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,23 +16,20 @@ import java.util.List;
 public class CarController {
 
     @Autowired
-    CarRepository carRepository;
+    CarService carService;
 
     @PostMapping(value = "/registeredCars")
     public Car registeredCar(@RequestBody  Car car) {
-        car.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        System.out.println("Hello");
-        return carRepository.save(car);
+        return carService.saveCar(car);
     }
 
     @GetMapping(value = "/registeredCars")
     public List<Car> searchRegisteredCar() {
-        return carRepository.findAll();
+        return carService.findAll();
     }
 
     @GetMapping(value = "/registeredCars/count")
     public long countOfRegisteredCars() {
-        return carRepository.count();
+        return carService.getCount();
     }
-
 }
