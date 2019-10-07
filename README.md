@@ -13,12 +13,15 @@ REST API
   }
 2. GET http://localhost:8080/registeredCars
  
-  page (optional) - defaultValue = 0
-  size (optional) - defaultValue =  10
-  carNumber=STRING (optional)
-  date=YYYYMMDD    (optional)
+    page (optional) - defaultValue = 0
   
-  EXAMPE http://localhost:8080/registeredCars?page=0&size=5&carNumber=12312 ZZ-9&timestamp=20191007
+    size (optional) - defaultValue =  10
+  
+    carNumber=STRING (optional)
+  
+    date=YYYYMMDD    (optional)
+  
+    EXAMPE http://localhost:8080/registeredCars?page=0&size=5&carNumber=12312 ZZ-9&timestamp=20191007
   
 3. GET http://localhost:8080/registeredCars/count
  
