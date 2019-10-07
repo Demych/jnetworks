@@ -21,8 +21,8 @@ public class Car {
     @GeneratedValue
     private Long id;
 
-    @Pattern(regexp="[A-Z0-9\\- ]{4,16}")
-    @Size()
+    @Pattern(regexp="[A-Z0-9\\- ]{4,16}", message = "baaaaad")
+//    @Size(min = 4, message = "не тот размер")
     private String carNumber;
 
     private Timestamp timestamp;
