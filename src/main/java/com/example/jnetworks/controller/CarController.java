@@ -1,6 +1,7 @@
 package com.example.jnetworks.controller;
 
 import com.example.jnetworks.entity.Car;
+import com.example.jnetworks.entity.CarsCount;
 import com.example.jnetworks.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,8 @@ public class CarController {
     }
 
     @GetMapping(value = "/count")
-    public long countOfRegisteredCars() {
+    public CarsCount countOfRegisteredCars()
+    {
         return carService.getCount();
     }
 }

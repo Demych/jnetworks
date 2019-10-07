@@ -1,6 +1,7 @@
 package com.example.jnetworks.service;
 
 import com.example.jnetworks.entity.Car;
+import com.example.jnetworks.entity.CarsCount;
 import com.example.jnetworks.entity.QCar;
 import com.example.jnetworks.repository.CarRepository;
 import com.querydsl.core.BooleanBuilder;
@@ -49,8 +50,8 @@ public class CarServiceImpl implements CarService {
         return endTime;
     }
     @Override
-    public long getCount() {
-        return carRepository.count();
+    public CarsCount getCount() {
+        return new CarsCount(carRepository.count());
     }
 
     @Override
