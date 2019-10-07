@@ -4,18 +4,15 @@ import com.example.jnetworks.entity.Car;
 import com.example.jnetworks.entity.QCar;
 import com.example.jnetworks.repository.CarRepository;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -30,15 +27,11 @@ public class CarServiceImpl implements CarService {
         if (carNumber != null && !carNumber.isEmpty()) {
             predicate.and(car.carNumber.eq(carNumber));
         }
-
-
-
         if (timestamp != null) {
             Timestamp startTime = getStartTime(timestamp);
             Timestamp endTime = getEndTime(startTime);
             predicate.and(car.timestamp.between(startTime, endTime));
         }
-
         return carRepository.findAll(predicate, PageRequest.of(page, size));
     }
 
