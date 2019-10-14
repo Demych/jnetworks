@@ -1,12 +1,13 @@
 package com.example.jnetworks.service;
 
+import com.example.jnetworks.dto.CarDto;
 import com.example.jnetworks.entity.Car;
 import com.example.jnetworks.entity.CarsCount;
 import com.example.jnetworks.entity.QCar;
 import com.example.jnetworks.repository.CarRepository;
 import com.querydsl.core.BooleanBuilder;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -21,8 +24,11 @@ public class CarServiceImpl implements CarService {
     @Autowired
     CarRepository carRepository;
 
+    @Autowired
+    Mapper mapper;
+
     @Override
-    public Page<Car> findAll(int page, int size, String carNumber, String timestamp) throws ParseException {
+    public List<CarDto> findAll(int page, int size, String carNumber, String timestamp) throws ParseException {
         BooleanBuilder predicate = new BooleanBuilder();
         QCar car = QCar.car;
         if (carNumber != null && !carNumber.isEmpty()) {
@@ -33,7 +39,8 @@ public class CarServiceImpl implements CarService {
             Timestamp endTime = getEndTime(startTime);
             predicate.and(car.timestamp.between(startTime, endTime));
         }
-        return carRepository.findAll(predicate, PageRequest.of(page, size));
+        List<Car> cars = carRepository.findAll(predicate, PageRequest.of(page, size)).getContent();
+        return cars.stream().map(car1 -> mapper.map(car1, CarDto.class)).collect(Collectors.toList());
     }
 
     private Timestamp getStartTime(String timestamp) throws ParseException {
@@ -55,8 +62,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car saveCar(Car car) {
+    public CarDto saveCar(Car car) {
         car.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        return carRepository.save(car);
+        return mapper.map(carRepository.save(car), CarDto.class);
     }
 }

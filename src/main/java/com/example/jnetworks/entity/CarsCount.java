@@ -1,17 +1,12 @@
 package com.example.jnetworks.entity;
 
+import lombok.*;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class CarsCount {
-    long registeredCarsCount;
-
-    public CarsCount(long registeredCarsCount) {
-        this.registeredCarsCount = registeredCarsCount;
-    }
-
-    public long getRegisteredCarsCount() {
-        return registeredCarsCount;
-    }
-
-    public void setRegisteredCarsCount(long registeredCarsCount) {
-        this.registeredCarsCount = registeredCarsCount;
-    }
+    private long registeredCarsCount;
 }
